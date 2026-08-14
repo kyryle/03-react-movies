@@ -20,7 +20,6 @@ export default function App() {
   return (
     <div className={css.App}>
       <SearchBar onSearch={handleSearch} />
-      <FetchMovies />
       <MovieList />
       <Loader />
       <ErrorMessage />

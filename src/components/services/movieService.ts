@@ -4,9 +4,9 @@ import axios from "axios";
 
 const myKey = import.meta.env.VITE_API_KEY;
 
-
+// query: string
 export const FetchMovies = (query: string) => {
-    const  data  = axios.get("https://api.themoviedb.org/3/search/movie", {
+    const  data: Promise<void>  = axios.get("https://api.themoviedb.org/3/search/movie", {
         params: {
             query: query
         },
@@ -15,7 +15,9 @@ export const FetchMovies = (query: string) => {
         }
     })
         .then(result => {
-        console.log(result);
+            console.log(result);
+           return console.log(data);
+            
         
         })
         .catch(err => {
@@ -24,8 +26,3 @@ export const FetchMovies = (query: string) => {
     })
     
 }
-
-
-// export default function handleForm(formData: FormData)  {
-//   const query = formData.get("query") as string
-// }
