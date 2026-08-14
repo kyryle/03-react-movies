@@ -1,6 +1,6 @@
 import css from './App.module.css'
 import SearchBar from './searchBar/SearchBar'
-import { FetchMovies } from "./services/movieService";
+import { FetchMovies } from "../services/movieService";
 import MovieList from "./movieGrid/MovieGrid";
 import Loader from "./loader/Loader";
 import ErrorMessage from "./errorMessage/ErrorMessage";
