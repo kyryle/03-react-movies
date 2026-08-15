@@ -1,12 +1,12 @@
 import axios from "axios";
-// import MovieList from "../movieGrid/MovieGrid";
-// import type Movie from "../../types/movie";
+import type {Movie} from "../types/movie";
 
 const myKey = import.meta.env.VITE_API_KEY;
 
 // query: string
+// : Promise<void>
 export const FetchMovies = (query: string) => {
-    const  data: Promise<void>  = axios.get("https://api.themoviedb.org/3/search/movie", {
+    const  data: Movie  = axios.get("https://api.themoviedb.org/3/search/movie", {
         params: {
             query: query
         },
@@ -15,13 +15,14 @@ export const FetchMovies = (query: string) => {
         }
     })
         .then(result => {
-            console.log(result);
-           return console.log(data);
+            console.log(result.data.results);
+            const movies = result.data.results
+           return movies
             
         
         })
         .catch(err => {
-        console.log(err);
+        alert(err);
         
     })
     
