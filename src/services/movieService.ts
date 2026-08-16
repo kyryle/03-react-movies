@@ -1,12 +1,18 @@
 import axios from "axios";
-import type {Movie} from "../types/movie";
+// import type {Movie} from "../types/movie";
 
 const myKey = import.meta.env.VITE_API_KEY;
+
+interface dataPromise {
+    data: {
+        results: string[]
+    }
+}
 
 // query: string
 // : Promise<void>
 export const FetchMovies = (query: string) => {
-    const  data: Movie  = axios.get("https://api.themoviedb.org/3/search/movie", {
+    const  data: Promise<dataPromise>  = axios.get("https://api.themoviedb.org/3/search/movie", {
         params: {
             query: query
         },
@@ -16,6 +22,8 @@ export const FetchMovies = (query: string) => {
     })
         .then(result => {
             console.log(result.data.results);
+            console.log(data);
+            
             const movies = result.data.results
            return movies
             
