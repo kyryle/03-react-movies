@@ -14,6 +14,7 @@ export default function App() {
   const [movies, setMovies] = useState([])
   const handleSearch = (query: string) => {
     console.log(query);
+    console.log(setMovies);
     FetchMovies(query)
     
   }
