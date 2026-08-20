@@ -14,8 +14,7 @@ export default function App() {
   const [movies, setMovies] = useState<Movie[]>([])
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
-  const [isOpen, setIsOpen] = useState(false)
-  const [movie, setMovie] = useState<Movie>({} as Movie)
+  const [movie, setMovie] = useState<Movie | null>(null)
 
 
   const handleSearch = async (query: string) => {
@@ -29,7 +28,7 @@ export default function App() {
       }
     } catch (err) {
       setIsError(true)
-      alert(err)
+      console.log(err);
     } finally {
       setIsLoading(false)
     }
@@ -37,12 +36,10 @@ export default function App() {
   }
   const handleImageClick = (movie: Movie) => {
     setMovie(movie)
-    setIsOpen(true)
   }
 
   const handleClose = () => {
-    setIsOpen(false)
-    setMovie({} as Movie)
+    setMovie(null)
   
   }
 
@@ -53,7 +50,7 @@ export default function App() {
       {movies.length > 0 && <MovieGrid movies={movies} onSelect={handleImageClick} />}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {isOpen && <><MovieModal movie={movie} onClose={handleClose}/></>}
+      {movie && <><MovieModal movie={movie} onClose={handleClose}/></>}
       <Toaster/>
     </div>
 )}
