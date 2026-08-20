@@ -7,7 +7,7 @@ interface Response {
     results: Movie[]
 }
 
-export const fetchMovies = async (query: string): Promise<Movie[] | []> => {
+export const fetchMovies = async (query: string): Promise<Movie[]> => {
     try {
     const  result  = await axios.get<Response>("https://api.themoviedb.org/3/search/movie", {
         params: {
@@ -21,7 +21,7 @@ export const fetchMovies = async (query: string): Promise<Movie[] | []> => {
             
             return result.data.results
     } catch (err) {
-        alert(err)
+        console.log(err);
         return []
             }
         

@@ -5,7 +5,7 @@ import MovieGrid from "../MovieGrid/MovieGrid";
 import Loader from "../Loader/Loader";
 import ErrorMessage from "../ErrorMessage/ErrorMessage";
 import MovieModal from "../MovieModal/MovieModal";
-import { Toaster } from "react-hot-toast";
+import toast, { Toaster } from "react-hot-toast";
 import { useState } from "react";
 import type {Movie} from "../../types/movie";
 
@@ -15,7 +15,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [movie, setMovie] = useState<Movie | null>(null)
+  const [movie, setMovie] = useState<Movie>({} as Movie)
 
 
   const handleSearch = async (query: string) => {
@@ -25,7 +25,7 @@ export default function App() {
       const data = await fetchMovies(query)
       setMovies(data ?? [])
       if (data.length < 1) {
-          setIsError(true)
+          toast.error('No movies found for your request.')
       }
     } catch (err) {
       setIsError(true)
@@ -41,7 +41,9 @@ export default function App() {
   }
 
   const handleClose = () => {
-      setIsOpen(false)
+    setIsOpen(false)
+    setMovie({} as Movie)
+  
   }
 
   
@@ -51,7 +53,7 @@ export default function App() {
       {movies.length > 0 && <MovieGrid movies={movies} onSelect={handleImageClick} />}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {isOpen || movie && <><MovieModal movie={movie} onClose={handleClose}/></>}
+      {isOpen && <><MovieModal movie={movie} onClose={handleClose}/></>}
       <Toaster/>
     </div>
 )}
