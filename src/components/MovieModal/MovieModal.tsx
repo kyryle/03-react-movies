@@ -10,37 +10,39 @@ interface MovieModalProps {
 
 export default function MovieModal({ movie, onClose }: MovieModalProps) {
 
+  useEffect(() => {
+    document.body.style.overflow = 'hidden'
+    return () => {
+        document.body.style.overflow = ''
+    }
 
+  }, [])
+
+  const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
+    if (event.target === document.querySelector("div[role=dialog]")) {
+      onClose()
+    }
+
+  }
 
   useEffect(() => {
-      document.body.style.overflow = 'hidden'
     const handleCloseButton = (event: KeyboardEvent) => {
       if (event.code === "Escape") {
         onClose()
-        document.body.style.overflow = ''
-      }
-    }
-
-    const handleCloseClick = (event: MouseEvent) => {
-      if (event.target === onclick) {
-        onClose()
-        document.body.style.overflow = ''
       }
     }
     
     document.addEventListener("keydown", handleCloseButton)
-    document.addEventListener("click", handleCloseClick)
 
     return () => {
       document.removeEventListener("keydown", handleCloseButton)
-      document.removeEventListener("click", handleCloseClick)
     }
   }, [onClose])
 
     
-    return createPortal( <div className={css.backdrop} role="dialog" aria-modal="true">
-  <div className={css.modal} onClick={onClose}>
-    <button className={css.closeButton} aria-label="Close modal">
+    return createPortal( <div className={css.backdrop} role="dialog" aria-modal="true" onClick={handleBackdropClick}>
+  <div className={css.modal}>
+    <button className={css.closeButton} aria-label="Close modal" onClick={onClose}>
       &times;
     </button>
         <img
