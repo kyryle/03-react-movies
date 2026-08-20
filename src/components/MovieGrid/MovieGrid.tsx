@@ -7,11 +7,6 @@ interface MovieGridProps {
 }
 export default function MovieGrid({ movies, onSelect }: MovieGridProps) {
     
-    // const handleClick = () => {
-
-
-    //     onSelect(key)
-    // }
 console.log(movies);
     
     return (

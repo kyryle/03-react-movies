@@ -15,7 +15,7 @@ export default function App() {
   const [isLoading, setIsLoading] = useState(false)
   const [isError, setIsError] = useState(false)
   const [isOpen, setIsOpen] = useState(false)
-  const [movie, setMovie] = useState({})
+  const [movie, setMovie] = useState<Movie | null>(null)
 
 
   const handleSearch = async (query: string) => {
@@ -51,7 +51,7 @@ export default function App() {
       {movies.length > 0 && <MovieGrid movies={movies} onSelect={handleImageClick} />}
       {isLoading && <Loader />}
       {isError && <ErrorMessage />}
-      {isOpen && <><MovieModal movie={movie} onClose={handleClose}/></>}
+      {isOpen || movie && <><MovieModal movie={movie} onClose={handleClose}/></>}
       <Toaster/>
     </div>
 )}
