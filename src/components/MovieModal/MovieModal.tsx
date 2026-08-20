@@ -19,7 +19,7 @@ export default function MovieModal({ movie, onClose }: MovieModalProps) {
   }, [])
 
   const handleBackdropClick = (event: React.MouseEvent<HTMLDivElement>) => {
-    if (event.target === document.querySelector("div[role=dialog]")) {
+    if (event.target === event.currentTarget) {
       onClose()
     }
 
